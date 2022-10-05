@@ -9,7 +9,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <Label Text="All my Film" Grid.Row="0" VerticalTextAlignment="End" TextColor="White" />
+        <Label Text="All my Film are here" Grid.Row="0" VerticalTextAlignment="End" TextColor="White" />
         <ListView x:Name="lstFilm"  Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate>
