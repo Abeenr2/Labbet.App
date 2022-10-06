@@ -6,46 +6,56 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Labbet.ViewModel;
-
+using Labbet.Services;
+using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Labbet.ViewModel
 {
-    public class FilmViewModel
+    public partial class FilmViewModel : BasViewModel
     {
 
+        FilmerServices filmerServices;
+        public ObservableCollection<Film> film { get; } = new();
 
-        public void LoadFilm()
+        public FilmViewModel(FilmerServices filmerServices)
         {
-            //ToDo Connect to Web service
-
-            //Here just test data
-            LoadTestData();
+            Title = "Alla filmer kommer ligga här";
+            this.filmerServices = filmerServices;
         }
-
-        public async void LoadTestData()
+        [RelayCommand]
+        async Task GetFilmerAsync()
         {
+            if (IsBusy)
+            {
+                return;
+            }
             try
             {
-                //10.0.2.2 for Android, localhost for windows
-                string apiURL = @"http://www.omdbapi.com/?i=tt3896198&apikey=d6b7a744";
-                HttpClient httpClient = new HttpClient();
-                HttpResponseMessage response = await httpClient.GetAsync(apiURL);
-                if (response.IsSuccessStatusCode)
+                IsBusy = true;
+                var film = await filmerServices.GetFilmer();
+                if (film.Count != 0) // om listan inte har 0 memes
                 {
-                    string content = await response.Content.ReadAsStringAsync();
-                    content = content.Replace("<P>", "");
-
-                    //List<Datum> serviceResponse = JsonConvert.DeserializeObject<List<Datum>>(content);
-                    List<Film> serviceResponse = JsonConvert.DeserializeObject<List<Film>>(content);
-                   // lstFilm.ItemsSource = serviceResponse;
+                    film.Clear(); // rensa listan
                 }
-                else
-                    await Application.Current.MainPage.DisplayAlert("Error", "We are sorry, the internet connection is not available", "OK");
+                foreach (var meme in film)  // för varje meme i memes listan
+                {
+                    film.Add(meme); // lägg till memes
+                }
+
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "We are sorry, the internet connection is not available.(" + ex.Message + ")", "OK");
+                Console.WriteLine(ex);
+                await Shell.Current.DisplayAlert("Error", $"Cannot bring the movies out: {ex.Message}", "Ok");
+
             }
+            finally
+            {
+                IsBusy = false;
+            }
+
         }
+
     }
 }
