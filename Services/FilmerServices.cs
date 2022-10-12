@@ -26,7 +26,7 @@ namespace Labbet.Services
             {
                 return filmList;
             }
-            var url = "http://www.omdbapi.com/?i=tt3896198&apikey=d6b7a744";
+            var url = "http://www.omdbapi.com/?i=tt3896198&apikey=d6b7a744/";
             var response = await httpClient.GetAsync(url);
 
             if (response.IsSuccessStatusCode) // om man får response från internet

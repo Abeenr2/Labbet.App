@@ -16,7 +16,7 @@ namespace Labbet.ViewModel
     {
 
         FilmerServices filmerServices;
-        public ObservableCollection<Film> film { get; } = new();
+        public ObservableCollection<Film> films { get; } = new();
 
         public FilmViewModel(FilmerServices filmerServices)
         {
@@ -34,13 +34,13 @@ namespace Labbet.ViewModel
             {
                 IsBusy = true;
                 var film = await filmerServices.GetFilmer();
-                if (film.Count != 0) // om listan inte har 0 memes
+                if (film.Count != 0)
                 {
-                    film.Clear(); // rensa listan
+                    film.Clear(); 
                 }
-                foreach (var meme in film)  // för varje meme i memes listan
+                foreach (var films in film)  
                 {
-                    film.Add(meme); // lägg till memes
+                    film.Add(films); 
                 }
 
             }
