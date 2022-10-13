@@ -9,51 +9,47 @@ using Labbet.ViewModel;
 using Labbet.Services;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Labbet.ViewModel
 {
-    public partial class FilmViewModel : BasViewModel
+    public partial class FilmViewModel : INotifyPropertyChanged //: BasViewModel
     {
+       //[ObservableProperty]
+        //private Film? film;
+        private Film _film = new Film { Title= "Hej", Year = "1998" };
 
+        public Film FilmWS
+        {
+            get { return _film; }
+            set {
+                _film = value;
+                OnPropertyChanged(); // reports this property
+            }
+        }
+
+        public void OnPropertyChanged([CallerMemberName] string name = "") =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         FilmerServices filmerServices;
-        public ObservableCollection<Film> films { get; } = new();
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public FilmViewModel(FilmerServices filmerServices)
         {
-            Title = "Alla filmer kommer ligga här";
+            
             this.filmerServices = filmerServices;
+
         }
+
+
         [RelayCommand]
-        async Task GetFilmerAsync()
+        async Task GetFilmAsync()
         {
-            if (IsBusy)
-            {
-                return;
-            }
-            try
-            {
-                IsBusy = true;
-                var film = await filmerServices.GetFilmer();
-                if (film.Count != 0)
-                {
-                    film.Clear(); 
-                }
-                foreach (var films in film)  
-                {
-                    film.Add(films); 
-                }
+           this.FilmWS = await filmerServices.GetFilm();
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                await Shell.Current.DisplayAlert("Error", $"Cannot bring the movies out: {ex.Message}", "Ok");
 
-            }
-            finally
-            {
-                IsBusy = false;
-            }
 
         }
 

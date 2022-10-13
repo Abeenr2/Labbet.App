@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace Labbet.ViewModel
 {
-    public partial class BasViewModel : ObservableObject
+    public  class BasViewModel : ObservableObject
     {
-        public BasViewModel() 
-        {
+        //public BasViewModel() 
+        //{
 
-        }
-        [ObservableProperty] 
-        [NotifyPropertyChangedFor(nameof(IsNotBusy))]
-        bool isBusy;
+        //}
+        //[ObservableProperty] 
+        //[NotifyPropertyChangedFor(nameof(IsNotBusy))]
+        //bool isBusy;
 
-        [ObservableProperty]
-        string title;
-        public bool IsNotBusy => !IsBusy;
+        //[ObservableProperty]
+        //string title;
+        //public bool IsNotBusy => !IsBusy;
     }
 }

@@ -19,22 +19,36 @@ namespace Labbet.Services
         }
 
 
-        List<Film> filmList = new();
-        public async Task<List<Film>> GetFilmer()
-        {
-            if (filmList?.Count > 0)
-            {
-                return filmList;
-            }
-            var url = "http://www.omdbapi.com/?i=tt3896198&apikey=d6b7a744/";
-            var response = await httpClient.GetAsync(url);
 
-            if (response.IsSuccessStatusCode) // om man får response från internet
+        public async Task<Film> GetFilm()
+        {
+            var url = "http://www.omdbapi.com/?i=tt3896198&apikey=d6b7a744";
+            var response = await httpClient.GetAsync(url);
+            Film resultFilm = new Film();
+
+            if (response.IsSuccessStatusCode) 
             {
-                filmList = await response.Content.ReadFromJsonAsync<List<Film>>();
+                resultFilm = await response.Content.ReadFromJsonAsync<Film>();
             }
-            return filmList;
+            return resultFilm;
         }
+
+        //List<Film> filmList = new();
+        //public async Task<List<Film>> GetFilmer()
+        //{
+        //    if (filmList?.Count > 0)
+        //    {
+        //        return filmList;
+        //    }
+        //    var url = "http://www.omdbapi.com/?i=tt3896198&apikey=d6b7a744";
+        //    var response = await httpClient.GetAsync(url);
+
+        //    if (response.IsSuccessStatusCode) 
+        //    {
+        //        filmList = await response.Content.ReadFromJsonAsync<List<Film>>();
+        //    }
+        //    return filmList;
+        //}
    
     }
 

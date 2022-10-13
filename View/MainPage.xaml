@@ -9,19 +9,22 @@
     <Grid
         BackgroundColor="Yellow"
         >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-      
+        <VerticalStackLayout Grid.Row="0">
+            <Button Command="{Binding GetFilmCommand}" Text="Get FIlm" />
+        </VerticalStackLayout>
      
-            <CollectionView
+            <!--<CollectionView Grid.Row="1"
             Grid.ColumnSpan="2"
-            ItemsSource="{Binding films}"
+            ItemsSource="{Binding FilmWS}"
             SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Film">
-                        <Grid Padding="10">
-                            <Frame HeightRequest="125" Style="{StaticResource CardView}">
-                                <Grid Padding="0" ColumnDefinitions="125,*">
-                                
+                     
                                     <VerticalStackLayout
                                     VerticalOptions="Center"
                                     Grid.Column="1"
@@ -29,29 +32,20 @@
                                         <Label Style="{StaticResource LargeLabel}" BackgroundColor="Black" Text="{Binding Title}" />
                                     <Label Style="{StaticResource MediumLabel}" BackgroundColor="Black" Text="{Binding Year}" />
                                     </VerticalStackLayout>
-                                </Grid>
-                            </Frame>
-                        </Grid>
+                           
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-            </CollectionView>
+            </CollectionView>-->
+        <Frame Grid.Row="1">
+            <Frame.Style>
+                <Style TargetType="Frame">
+                    <Setter Property="BackgroundColor" Value="Gray" />
+                </Style>
+            </Frame.Style>
+            <Label Text="{Binding FilmWS.Title}" />
+        </Frame>
+       
 
 
-        <ActivityIndicator IsVisible="{Binding IsBusy}"
-                           IsRunning="{Binding IsBusy}"
-                           HorizontalOptions="EndAndExpand"
-                           VerticalOptions="CenterAndExpand" 
-                           Color="#0000ff"
-                           />
-        <StackLayout VerticalOptions="End" Orientation="Horizontal" HorizontalOptions="Center" Grid.ColumnSpan="2" Padding="0">
-            <Button Text="HÄmta information"
-            
-                IsEnabled="{Binding IsNotBusy}"
-                Margin="23"
-                BackgroundColor="CadetBlue"
-                TextColor="White"
-                FontSize="Subtitle"
-                />
-        </StackLayout>
     </Grid>
 </ContentPage>
