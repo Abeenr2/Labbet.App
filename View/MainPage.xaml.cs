@@ -9,7 +9,7 @@ public partial class MainPage : ContentPage
   
     public MainPage(FilmViewModel filmViewModel)
     {
-      
+        
         InitializeComponent();
         BindingContext = filmViewModel;
     }

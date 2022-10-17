@@ -4,11 +4,13 @@
                  xmlns:model="clr-namespace:Labbet.Model"
                  xmlns:viewmodel="clr-namespace:Labbet.ViewModel"
                  x:DataType="viewmodel:FilmViewModel"
-                 x:Class="Labbet.MainPage">
+                 x:Class="Labbet.MainPage"
+             >
 
     <Grid
         BackgroundColor="Yellow"
         >
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="100" />
             <RowDefinition Height="*" />
@@ -42,10 +44,29 @@
                     <Setter Property="BackgroundColor" Value="Gray" />
                 </Style>
             </Frame.Style>
-            <Label Text="{Binding FilmWS.Title}" />
-        </Frame>
-       
+            <Label Text="{Binding FilmWS.Title}"   />
+           
 
+        </Frame>
+
+        <VerticalStackLayout Grid.Row="1"
+                               HorizontalOptions="Center"
+                               Grid.Column="1"
+                               Padding="10">
+
+            <Label  Text="{Binding FilmWS.Year}"   />
+            <Label Text="{Binding FilmWS.Rated}"   />
+            <Label Text="{Binding FilmWS.Released}"   />
+            <Label Text="{Binding FilmWS.Runtime}"   />
+            <Label Text="{Binding FilmWS.Genre}"   />
+            <Label Text="{Binding FilmWS.Director}"   />
+            <Label Text="{Binding FilmWS.Actors}"   />
+            <Label Text="{Binding FilmWS.Plot}"   />
+            <Label Text="{Binding FilmWS.Language}"   />
+            <Label Text="{Binding FilmWS.Awards}"   />
+            
+
+        </VerticalStackLayout>
 
     </Grid>
 </ContentPage>

@@ -19,7 +19,7 @@ namespace Labbet.ViewModel
     {
        //[ObservableProperty]
         //private Film? film;
-        private Film _film = new Film { Title= "Hej", Year = "1998" };
+        private Film _film = new Film { Title= "", Year = "" };
 
         public Film FilmWS
         {
